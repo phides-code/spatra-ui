@@ -1,23 +1,32 @@
-import React from 'react';
+// import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import './index.css';
+import { Auth0Provider } from '@auth0/auth0-react';
+import { UserProvider } from './UserContext';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
-root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
-);
+const AUTH0_DOMAIN = process.env.REACT_APP_AUTH0_DOMAIN as string;
+const AUTH0_CLIENT_ID = process.env.REACT_APP_AUTH0_CLIENT_ID as string;
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+root.render(
+    // <React.StrictMode>
+    <Provider store={store}>
+        <Auth0Provider
+            domain={AUTH0_DOMAIN}
+            clientId={AUTH0_CLIENT_ID}
+            authorizationParams={{
+                redirect_uri: window.location.origin,
+            }}
+        >
+            <UserProvider>
+                <App />
+            </UserProvider>
+        </Auth0Provider>
+    </Provider>
+    // </React.StrictMode>
+);
