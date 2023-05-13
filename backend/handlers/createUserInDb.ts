@@ -39,6 +39,8 @@ const createUserInDb = async (req: Request, res: Response) => {
                 .insertOne({
                     _id: req.body.email,
                     ...req.body,
+                    agent: '',
+                    token: '',
                 });
 
             console.log('got resultOfInsert: ');

@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
 import Header from './components/Header';
 import Home from './components/Home';
 import Profile from './components/Profile';
+import { styled } from 'styled-components';
 
 const App = () => {
     return (
-        <div className='App'>
+        <Wrapper>
             <BrowserRouter>
                 <Header />
                 <Routes>
@@ -14,8 +14,12 @@ const App = () => {
                     <Route path='/profile' element={<Profile />} />
                 </Routes>
             </BrowserRouter>
-        </div>
+        </Wrapper>
     );
 };
+
+const Wrapper = styled.div`
+    margin: 1rem;
+`;
 
 export default App;

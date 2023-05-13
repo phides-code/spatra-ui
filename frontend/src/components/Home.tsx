@@ -2,11 +2,11 @@ import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 
 const Home = () => {
-    const { user, isAuthenticated } = useContext(UserContext);
+    const { isAuthenticated } = useContext(UserContext);
 
     if (!isAuthenticated) return <div />;
 
-    return <div>Hello {user?.nickname}</div>;
+    return <div></div>;
 };
 
 export default Home;
