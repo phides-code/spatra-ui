@@ -1,6 +1,25 @@
+import { useContext, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
+import { useAppDispatch } from '../app/hooks';
+import {
+    ProfileUpdate,
+    fetchUserProfile,
+    selectUserProfile,
+    updateUserProfile,
+} from '../features/userProfile/userProfileSlice';
+import { UserContext } from '../UserContext';
+import { useSelector } from 'react-redux';
 
 const Profile = () => {
+    const { user, isAuthenticated } = useContext(UserContext);
+
+    const dispatch = useAppDispatch();
+
+    const userProfile = useSelector(selectUserProfile);
+
+    const [agent, setAgent] = useState<string>('');
+    const [token, setToken] = useState<string>('');
+
     const handleBlur = (
         target:
             | (EventTarget & HTMLInputElement)
@@ -8,9 +27,56 @@ const Profile = () => {
     ) => {
         const { name, value } = target;
 
-        console.log('name: ' + name);
-        console.log('value: ' + value);
+        const update: ProfileUpdate = {
+            [name]: value,
+        };
+
+        const email = user?.email as string;
+        const sub = user?.sub as string;
+
+        dispatch(updateUserProfile({ email, sub, update }));
     };
+
+    const handleChange = (
+        target:
+            | (EventTarget & HTMLInputElement)
+            | (EventTarget & HTMLTextAreaElement)
+    ) => {
+        const { name, value } = target;
+
+        switch (name) {
+            case 'agent':
+                setAgent(value);
+                break;
+            case 'token':
+                setToken(value);
+                break;
+        }
+    };
+
+    useEffect(() => {
+        if (userProfile?.agent) {
+            setAgent(userProfile.agent);
+        }
+        if (userProfile?.token) {
+            setToken(userProfile.token);
+        }
+    }, [userProfile]);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            dispatch(
+                fetchUserProfile({
+                    email: user?.email as string,
+                    sub: user?.sub as string,
+                })
+            );
+        }
+    }, [dispatch, user, isAuthenticated]);
+
+    if (!isAuthenticated || !userProfile) {
+        return <div />;
+    }
 
     return (
         <div>
@@ -19,7 +85,9 @@ const Profile = () => {
                 <div>
                     <StyledInput
                         name='agent'
+                        value={agent as string}
                         onBlur={(ev) => handleBlur(ev.target)}
+                        onChange={(ev) => handleChange(ev.target)}
                     />
                 </div>
             </ProfileSection>
@@ -28,7 +96,9 @@ const Profile = () => {
                 <div>
                     <StyledTextarea
                         name='token'
+                        value={token as string}
                         onBlur={(ev) => handleBlur(ev.target)}
+                        onChange={(ev) => handleChange(ev.target)}
                     />
                 </div>
             </ProfileSection>
@@ -42,6 +112,7 @@ const StyledInput = styled.input`
     color: white;
     border: 1px solid grey;
 `;
+
 const StyledTextarea = styled.textarea`
     width: 16rem;
     height: 16rem;
@@ -49,6 +120,7 @@ const StyledTextarea = styled.textarea`
     color: white;
     border: 1px solid grey;
 `;
+
 const ProfileSectionLabel = styled.div`
     margin-right: 1rem;
 `;
