@@ -15,7 +15,6 @@ app.use(express.json());
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../../frontend/build')));
 
-// app.post('/api/agentStatus', getAgentStatus);
 app.post('/api/createUserInDb', createUserInDb);
 app.post('/api/updateUserProfile', updateUser);
 app.post('/api/getUserProfile', getUser);

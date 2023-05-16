@@ -8,7 +8,6 @@ import { RootState } from '../../app/store';
 
 interface UserProfile extends User {
     _id?: string;
-    agent?: string;
     token?: string;
 }
 
@@ -34,8 +33,7 @@ interface UpdateUserProfileProps {
 }
 
 export interface ProfileUpdate {
-    agent?: string;
-    token?: string;
+    token: string;
 }
 
 const initialState: UserProfileState = {

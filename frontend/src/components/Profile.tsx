@@ -3,12 +3,12 @@ import { styled } from 'styled-components';
 import { useAppDispatch } from '../app/hooks';
 import {
     ProfileUpdate,
-    fetchUserProfile,
     selectUserProfile,
     updateUserProfile,
 } from '../features/userProfile/userProfileSlice';
 import { UserContext } from '../UserContext';
 import { useSelector } from 'react-redux';
+import { selectAgent, fetchAgent } from '../features/agent/agentSlice';
 
 const Profile = () => {
     const { user, isAuthenticated } = useContext(UserContext);
@@ -16,81 +16,44 @@ const Profile = () => {
     const dispatch = useAppDispatch();
 
     const userProfile = useSelector(selectUserProfile);
+    const agent = useSelector(selectAgent);
+    const symbol = agent?.symbol;
+    const accountId = agent?.accountId;
 
-    const [agent, setAgent] = useState<string>('');
     const [token, setToken] = useState<string>('');
 
-    const handleBlur = (
-        target:
-            | (EventTarget & HTMLInputElement)
-            | (EventTarget & HTMLTextAreaElement)
-    ) => {
-        const { name, value } = target;
-
+    const handleBlur = async (target: EventTarget & HTMLTextAreaElement) => {
         const update: ProfileUpdate = {
-            [name]: value,
+            token: target.value,
         };
 
         const email = user?.email as string;
         const sub = user?.sub as string;
 
-        dispatch(updateUserProfile({ email, sub, update }));
-    };
+        const result = await dispatch(
+            updateUserProfile({ email, sub, update })
+        );
 
-    const handleChange = (
-        target:
-            | (EventTarget & HTMLInputElement)
-            | (EventTarget & HTMLTextAreaElement)
-    ) => {
-        const { name, value } = target;
-
-        switch (name) {
-            case 'agent':
-                setAgent(value);
-                break;
-            case 'token':
-                setToken(value);
-                break;
+        if (result) {
+            await dispatch(fetchAgent(token));
         }
     };
+
+    const handleChange = (target: EventTarget & HTMLTextAreaElement) =>
+        setToken(target.value);
 
     useEffect(() => {
-        if (userProfile?.agent) {
-            setAgent(userProfile.agent);
-        }
         if (userProfile?.token) {
             setToken(userProfile.token);
         }
     }, [userProfile]);
-
-    useEffect(() => {
-        if (isAuthenticated) {
-            dispatch(
-                fetchUserProfile({
-                    email: user?.email as string,
-                    sub: user?.sub as string,
-                })
-            );
-        }
-    }, [dispatch, user, isAuthenticated]);
 
     if (!isAuthenticated || !userProfile) {
         return <div />;
     }
 
     return (
-        <div>
-            <ProfileSection>
-                <ProfileSectionLabel>Agent:</ProfileSectionLabel>
-                <div>
-                    <StyledInput
-                        name='agent'
-                        value={agent as string}
-                        onBlur={(ev) => handleBlur(ev.target)}
-                        onChange={(ev) => handleChange(ev.target)}
-                    />
-                </div>
-            </ProfileSection>
+        <Wrapper>
             <ProfileSection>
                 <ProfileSectionLabel>Token:</ProfileSectionLabel>
                 <div>
@@ -102,15 +65,34 @@ const Profile = () => {
                     />
                 </div>
             </ProfileSection>
-        </div>
+            <ProfileSection>
+                <ProfileSectionLabel>Agent Symbol:</ProfileSectionLabel>
+                <div>
+                    <ProfileValue>{symbol}</ProfileValue>
+                </div>
+            </ProfileSection>
+            <ProfileSection>
+                <ProfileSectionLabel>AccountID:</ProfileSectionLabel>
+                <div>
+                    <ProfileValue>{accountId}</ProfileValue>
+                </div>
+            </ProfileSection>
+        </Wrapper>
     );
 };
 
-const StyledInput = styled.input`
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    max-width: 24rem;
+`;
+
+const ProfileValue = styled.div`
     width: 16rem;
     background: black;
     color: white;
     border: 1px solid grey;
+    min-height: 1rem;
 `;
 
 const StyledTextarea = styled.textarea`
@@ -128,6 +110,7 @@ const ProfileSectionLabel = styled.div`
 const ProfileSection = styled.div`
     display: flex;
     margin-bottom: 1rem;
+    justify-content: space-between;
 `;
 
 export default Profile;
