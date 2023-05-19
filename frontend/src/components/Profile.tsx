@@ -11,16 +11,14 @@ import { useSelector } from 'react-redux';
 import { selectAgent, fetchAgent } from '../features/agent/agentSlice';
 
 const Profile = () => {
-    const { user, isAuthenticated } = useContext(UserContext);
-
     const dispatch = useAppDispatch();
 
+    const [token, setToken] = useState<string>('');
+    const { user, isAuthenticated } = useContext(UserContext);
     const userProfile = useSelector(selectUserProfile);
     const agent = useSelector(selectAgent);
     const symbol = agent?.symbol;
     const accountId = agent?.accountId;
-
-    const [token, setToken] = useState<string>('');
 
     const handleBlur = async (target: EventTarget & HTMLTextAreaElement) => {
         const update: ProfileUpdate = {
@@ -90,7 +88,7 @@ const Wrapper = styled.div`
 const ProfileValue = styled.div`
     width: 16rem;
     background: black;
-    color: white;
+    color: darkgrey;
     border: 1px solid grey;
     min-height: 1rem;
 `;
@@ -99,7 +97,7 @@ const StyledTextarea = styled.textarea`
     width: 16rem;
     height: 16rem;
     background: black;
-    color: white;
+    color: darkgrey;
     border: 1px solid grey;
 `;
 

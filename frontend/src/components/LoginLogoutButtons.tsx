@@ -23,4 +23,7 @@ export const LogoutButton = () => {
     );
 };
 
-const StyledButton = styled.button``;
+const StyledButton = styled.button`
+    color: darkgrey;
+    background: black;
+`;

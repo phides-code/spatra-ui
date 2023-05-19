@@ -30,7 +30,7 @@ const Wrapper = styled.div`
 
 const StyledLink = styled(Link)`
     text-decoration: none;
-    color: white;
+    color: darkgrey;
 `;
 
 export default Header;

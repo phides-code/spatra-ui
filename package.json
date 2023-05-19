@@ -17,9 +17,5 @@
     "bugs": {
         "url": "https://github.com/phides-code/spatra-ui/issues"
     },
-    "homepage": "https://github.com/phides-code/spatra-ui#readme",
-    "devDependencies": {
-        "@types/styled-components": "^5.1.26",
-        "styled-components": "^5.3.10"
-    }
+    "homepage": "https://github.com/phides-code/spatra-ui#readme"
 }
