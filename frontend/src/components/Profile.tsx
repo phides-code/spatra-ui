@@ -117,7 +117,7 @@ const ProfileValue = styled.div`
 `;
 
 const ErrorMessage = styled.div`
-    color: red;
+    color: darkred;
 `;
 
 export default Profile;
