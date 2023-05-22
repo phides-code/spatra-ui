@@ -2,12 +2,14 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import userProfileReducer from '../features/userProfile/userProfileSlice';
 import agentReducer from '../features/agent/agentSlice';
 import waypointReducer from '../features/waypoint/waypointSlice';
+import systemReducer from '../features/system/systemSlice';
 
 export const store = configureStore({
     reducer: {
         userProfile: userProfileReducer,
         agent: agentReducer,
         waypoint: waypointReducer,
+        system: systemReducer,
     },
 });
 

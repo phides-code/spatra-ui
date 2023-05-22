@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 
-interface Waypoint {
+export interface Waypoint {
     systemSymbol: string;
     symbol: string;
     type: string;

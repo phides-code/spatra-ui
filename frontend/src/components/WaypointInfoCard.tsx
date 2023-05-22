@@ -21,7 +21,7 @@ const WaypointInfoCard = () => {
     const token = userProfile?.token as string;
 
     useEffect(() => {
-        if (token) {
+        if (token && waypointSymbol) {
             dispatch(
                 fetchWaypoint({ waypointSymbol, token } as FetchWaypointProps)
             );
@@ -29,7 +29,14 @@ const WaypointInfoCard = () => {
     }, [dispatch, token, waypointSymbol]);
 
     const cardSectionData = [
-        { name: 'System Symbol', value: waypoint?.systemSymbol },
+        {
+            name: 'System Symbol',
+            value: (
+                <Link to={`/system/${waypoint?.systemSymbol}`}>
+                    {waypoint?.systemSymbol}
+                </Link>
+            ),
+        },
         { name: 'Symbol', value: waypoint?.symbol },
         { name: 'Type', value: waypoint?.type },
         { name: 'X', value: waypoint?.x },
@@ -59,6 +66,8 @@ const WaypointInfoCard = () => {
         },
         { name: 'Faction Symbol', value: waypoint?.faction.symbol },
     ] as CardSectionData[];
+
+    if (!cardSectionData) return <div />;
 
     return <InfoCard header='Waypoint' cardSectionData={cardSectionData} />;
 };

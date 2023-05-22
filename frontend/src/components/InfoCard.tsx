@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export interface CardSectionData {
     name: string;
-    value: string;
+    value: string | JSX.Element;
 }
 
 interface InfoCardProps {

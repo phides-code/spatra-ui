@@ -13,6 +13,7 @@ import {
 import { useSelector } from 'react-redux';
 import { fetchAgent } from './features/agent/agentSlice';
 import WaypointInfoCard from './components/WaypointInfoCard';
+import SystemInfoCard from './components/SystemInfoCard';
 
 const App = () => {
     const { user, isAuthenticated } = useContext(UserContext);
@@ -48,6 +49,10 @@ const App = () => {
                     <Route
                         path='/waypoint/:waypointSymbol'
                         element={<WaypointInfoCard />}
+                    />
+                    <Route
+                        path='/system/:systemSymbol'
+                        element={<SystemInfoCard />}
                     />
                 </Routes>
             </BrowserRouter>

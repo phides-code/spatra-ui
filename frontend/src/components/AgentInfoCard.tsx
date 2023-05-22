@@ -20,6 +20,8 @@ const AgentInfoCard = () => {
         { name: 'Credits', value: agent?.credits },
     ] as CardSectionData[];
 
+    if (!cardSectionData) return <div />;
+
     return <InfoCard header='Agent' cardSectionData={cardSectionData} />;
 };
 
