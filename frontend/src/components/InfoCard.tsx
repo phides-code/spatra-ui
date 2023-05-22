@@ -28,7 +28,7 @@ const InfoCard = ({ header, cardSectionData }: InfoCardProps) => {
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    max-width: 16rem;
+    max-width: 20rem;
     border: 1px solid gray;
 `;
 

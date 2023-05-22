@@ -1,13 +1,22 @@
 import { useSelector } from 'react-redux';
 import { selectAgent } from '../features/agent/agentSlice';
 import InfoCard, { CardSectionData } from './InfoCard';
+import { Link } from 'react-router-dom';
 
 const AgentInfoCard = () => {
-    const agent = useSelector(selectAgent);
+    const agentState = useSelector(selectAgent);
+    const agent = agentState.data;
 
     const cardSectionData = [
         { name: 'Symbol', value: agent?.symbol },
-        { name: 'Headquarters', value: agent?.headquarters },
+        {
+            name: 'Headquarters',
+            value: (
+                <Link to={`/waypoint/${agent?.headquarters}`}>
+                    {agent?.headquarters}
+                </Link>
+            ),
+        },
         { name: 'Credits', value: agent?.credits },
     ] as CardSectionData[];
 

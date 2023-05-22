@@ -16,7 +16,9 @@ const Profile = () => {
     const [token, setToken] = useState<string>('');
     const { user, isAuthenticated } = useContext(UserContext);
     const userProfile = useSelector(selectUserProfile);
-    const agent = useSelector(selectAgent);
+    const agentState = useSelector(selectAgent);
+    const agent = agentState.data;
+    const agentFailed = agentState.status === 'failed';
     const symbol = agent?.symbol;
     const accountId = agent?.accountId;
 
@@ -75,6 +77,9 @@ const Profile = () => {
                     <ProfileValue>{accountId}</ProfileValue>
                 </div>
             </ProfileSection>
+            {agentFailed && (
+                <ErrorMessage>{agentState.error?.message}</ErrorMessage>
+            )}
         </Wrapper>
     );
 };
@@ -85,12 +90,8 @@ const Wrapper = styled.div`
     max-width: 24rem;
 `;
 
-const ProfileValue = styled.div`
-    width: 16rem;
-    background: black;
-    color: darkgrey;
-    border: 1px solid grey;
-    min-height: 1rem;
+const ProfileSectionLabel = styled.div`
+    margin-right: 1rem;
 `;
 
 const StyledTextarea = styled.textarea`
@@ -101,14 +102,22 @@ const StyledTextarea = styled.textarea`
     border: 1px solid grey;
 `;
 
-const ProfileSectionLabel = styled.div`
-    margin-right: 1rem;
-`;
-
 const ProfileSection = styled.div`
     display: flex;
     margin-bottom: 1rem;
     justify-content: space-between;
+`;
+
+const ProfileValue = styled.div`
+    width: 14rem;
+    background: black;
+    color: darkgrey;
+    border: 1px solid grey;
+    min-height: 1rem;
+`;
+
+const ErrorMessage = styled.div`
+    color: red;
 `;
 
 export default Profile;

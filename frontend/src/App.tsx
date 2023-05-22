@@ -12,6 +12,7 @@ import {
 } from './features/userProfile/userProfileSlice';
 import { useSelector } from 'react-redux';
 import { fetchAgent } from './features/agent/agentSlice';
+import WaypointInfoCard from './components/WaypointInfoCard';
 
 const App = () => {
     const { user, isAuthenticated } = useContext(UserContext);
@@ -44,6 +45,10 @@ const App = () => {
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/profile' element={<Profile />} />
+                    <Route
+                        path='/waypoint/:waypointSymbol'
+                        element={<WaypointInfoCard />}
+                    />
                 </Routes>
             </BrowserRouter>
         </Wrapper>

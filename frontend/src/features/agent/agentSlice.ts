@@ -12,18 +12,24 @@ export interface Agent {
     credits: number;
 }
 
-interface FetchResponseType {
-    data: Agent;
+interface ErrorMessage {
+    message: string;
+    code?: number;
 }
 
-interface AgentState {
-    agent: Agent | null;
+interface FetchResponseType {
+    data?: Agent;
+    error?: ErrorMessage;
+}
+
+interface AgentState extends FetchResponseType {
     status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState: AgentState = {
-    agent: null,
+    data: undefined,
     status: 'idle',
+    error: undefined,
 };
 
 export const fetchAgent = createAsyncThunk(
@@ -38,6 +44,10 @@ export const fetchAgent = createAsyncThunk(
             }
         );
         const fetchResponse: FetchResponseType = await rawFetchResponse.json();
+
+        if (fetchResponse.error) {
+            throw new Error(fetchResponse.error.message);
+        }
 
         return fetchResponse;
     }
@@ -54,17 +64,20 @@ const agentSlice = createSlice({
             })
             .addCase(fetchAgent.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.agent = action.payload.data;
+                state.data = action.payload.data;
             })
-            .addCase(fetchAgent.rejected, (state) => {
+            .addCase(fetchAgent.rejected, (state, action) => {
                 state.status = 'failed';
+                state.error = {
+                    message: action.error.message as string,
+                };
             });
     },
 });
 
 export const selectAgent = createSelector(
     (state: RootState) => state.agent,
-    (agent) => agent.agent || null
+    (agent) => agent
 );
 
 export default agentSlice.reducer;
