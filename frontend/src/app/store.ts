@@ -3,6 +3,7 @@ import userProfileReducer from '../features/userProfile/userProfileSlice';
 import agentReducer from '../features/agent/agentSlice';
 import waypointReducer from '../features/waypoint/waypointSlice';
 import systemReducer from '../features/system/systemSlice';
+import shipsReducer from '../features/ships/shipsSlice';
 
 export const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
         agent: agentReducer,
         waypoint: waypointReducer,
         system: systemReducer,
+        ships: shipsReducer,
     },
 });
 

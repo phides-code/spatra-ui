@@ -14,13 +14,14 @@ const InfoCard = ({ header, cardSectionData }: InfoCardProps) => {
     return (
         <Wrapper>
             <CardHeader>{header}</CardHeader>
-
-            {cardSectionData.map((cardSection, i) => (
-                <CardSection key={cardSection.name + i}>
-                    {`${cardSection.name}: `}
-                    <CardSectionValue>{cardSection.value}</CardSectionValue>
-                </CardSection>
-            ))}
+            <CardBody>
+                {cardSectionData.map((cardSection, i) => (
+                    <CardSection key={cardSection.name + i}>
+                        {`${cardSection.name}: `}
+                        <CardSectionValue>{cardSection.value}</CardSectionValue>
+                    </CardSection>
+                ))}
+            </CardBody>
         </Wrapper>
     );
 };
@@ -28,7 +29,7 @@ const InfoCard = ({ header, cardSectionData }: InfoCardProps) => {
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    max-width: 20rem;
+    max-width: 40rem;
     border: 1px solid gray;
 `;
 
@@ -40,10 +41,13 @@ const CardHeader = styled.div`
     padding: 0.2rem;
 `;
 
+const CardBody = styled.div`
+    padding: 0.5rem;
+`;
+
 const CardSection = styled.div`
-    padding: 0.2rem;
     display: flex;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     justify-content: space-between;
 `;
 

@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { fetchAgent } from './features/agent/agentSlice';
 import WaypointInfoCard from './components/WaypointInfoCard';
 import SystemInfoCard from './components/SystemInfoCard';
+import ShipsInfoCard from './components/ShipsInfoCard';
 
 const App = () => {
     const { user, isAuthenticated } = useContext(UserContext);
@@ -41,26 +42,34 @@ const App = () => {
 
     return (
         <Wrapper>
-            <BrowserRouter>
-                <Header />
-                <Routes>
-                    <Route path='/' element={<Home />} />
-                    <Route path='/profile' element={<Profile />} />
-                    <Route
-                        path='/waypoint/:waypointSymbol'
-                        element={<WaypointInfoCard />}
-                    />
-                    <Route
-                        path='/system/:systemSymbol'
-                        element={<SystemInfoCard />}
-                    />
-                </Routes>
-            </BrowserRouter>
+            <InnerWrapper>
+                <BrowserRouter>
+                    <Header />
+                    <Routes>
+                        <Route path='/' element={<Home />} />
+                        <Route path='/profile' element={<Profile />} />
+                        <Route
+                            path='/waypoint/:waypointSymbol'
+                            element={<WaypointInfoCard />}
+                        />
+                        <Route
+                            path='/system/:systemSymbol'
+                            element={<SystemInfoCard />}
+                        />
+                        <Route path='/ships' element={<ShipsInfoCard />} />
+                    </Routes>
+                </BrowserRouter>
+            </InnerWrapper>
         </Wrapper>
     );
 };
 
 const Wrapper = styled.div`
+    margin: 0 auto;
+    max-width: 40rem;
+`;
+
+const InnerWrapper = styled.div`
     margin: 1rem;
 `;
 

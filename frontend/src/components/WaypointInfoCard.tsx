@@ -25,25 +25,23 @@ const WaypointInfoCard = () => {
     const [showTraitInfoBox, setShowTraitInfoBox] = useState(false);
     const [selectedTrait, setSelectedTrait] = useState<Trait>();
 
-    const TraitInfoBox = () => {
-        return (
-            <TraitInfoBoxWrapper>
-                <CloseButtonWrapper>
-                    <CloseButton
-                        onClick={() => {
-                            setShowTraitInfoBox(false);
-                        }}
-                    >
-                        X
-                    </CloseButton>
-                </CloseButtonWrapper>
-                <div>{selectedTrait?.name}</div>
-                <TraitDescription>
-                    <div>{selectedTrait?.description}</div>
-                </TraitDescription>
-            </TraitInfoBoxWrapper>
-        );
-    };
+    const TraitInfoBox = () => (
+        <TraitInfoBoxWrapper>
+            <CloseButtonWrapper>
+                <CloseButton
+                    onClick={() => {
+                        setShowTraitInfoBox(false);
+                    }}
+                >
+                    X
+                </CloseButton>
+            </CloseButtonWrapper>
+            <div>{selectedTrait?.name}</div>
+            <TraitDescription>
+                <div>{selectedTrait?.description}</div>
+            </TraitDescription>
+        </TraitInfoBoxWrapper>
+    );
 
     const handleTraitClick = (trait: Trait) => {
         setShowTraitInfoBox(true);
@@ -109,19 +107,21 @@ const WaypointInfoCard = () => {
     if (!cardSectionData) return <div />;
 
     return (
-        <>
-            {showTraitInfoBox && <TraitInfoBox />}
+        <Wrapper>
             <InfoCard header='Waypoint' cardSectionData={cardSectionData} />
-        </>
+            {showTraitInfoBox && <TraitInfoBox />}
+        </Wrapper>
     );
 };
 
+const Wrapper = styled.div``;
+
 const TraitInfoBoxWrapper = styled.div`
     padding: 0.5rem;
-    position: absolute;
-    top: 6rem;
-    left: 2rem;
-    width: 17rem;
+    margin-left: 2rem;
+    position: relative;
+    top: -18rem;
+    right: 1rem;
     border: 1px solid darkgray;
     z-index: 999;
     background-color: black;
