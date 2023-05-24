@@ -4,6 +4,7 @@ import { useAppDispatch } from '../app/hooks';
 import { selectUserProfile } from '../features/userProfile/userProfileSlice';
 import { useEffect } from 'react';
 import InfoCard, { CardSectionData } from './InfoCard';
+import { Link } from 'react-router-dom';
 
 const ShipsInfoCard = () => {
     const shipsState = useSelector(selectShips);
@@ -22,7 +23,11 @@ const ShipsInfoCard = () => {
 
     const cardSectionData = ships?.map((ship, i) => ({
         name: ship.registration.role,
-        value: ship.registration.name,
+        value: (
+            <Link to={`/ship/${ship.registration.name}`}>
+                {ship.registration.name}
+            </Link>
+        ),
     })) as CardSectionData[];
 
     if (!cardSectionData) return <div />;

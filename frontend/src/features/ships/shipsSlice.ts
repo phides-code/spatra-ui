@@ -92,7 +92,7 @@ interface FrameRequirements {
     crew: number;
 }
 
-interface Frame {
+export interface Frame {
     symbol: string;
     name: string;
     description: string;
@@ -149,7 +149,7 @@ interface Cargo {
     inventory: CargoItem[];
 }
 
-interface Ship {
+export interface Ship {
     symbol: string;
     nav: Nav;
     crew: Crew;
@@ -204,7 +204,7 @@ export const fetchShips = createAsyncThunk(
     }
 );
 
-const shipSlice = createSlice({
+const shipsSlice = createSlice({
     name: 'ships',
     initialState,
     reducers: {},
@@ -231,4 +231,4 @@ export const selectShips = createSelector(
     (ships) => ships
 );
 
-export default shipSlice.reducer;
+export default shipsSlice.reducer;

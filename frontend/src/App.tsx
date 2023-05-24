@@ -4,7 +4,7 @@ import Home from './components/Home';
 import Profile from './components/Profile';
 import { styled } from 'styled-components';
 import { useContext, useEffect } from 'react';
-import { UserContext } from './UserContext';
+import { UserContext } from './common/UserContext';
 import { useAppDispatch } from './app/hooks';
 import {
     fetchUserProfile,
@@ -15,6 +15,7 @@ import { fetchAgent } from './features/agent/agentSlice';
 import WaypointInfoCard from './components/WaypointInfoCard';
 import SystemInfoCard from './components/SystemInfoCard';
 import ShipsInfoCard from './components/ShipsInfoCard';
+import ShipInfoCard from './components/ShipInfoCard';
 
 const App = () => {
     const { user, isAuthenticated } = useContext(UserContext);
@@ -57,6 +58,10 @@ const App = () => {
                             element={<SystemInfoCard />}
                         />
                         <Route path='/ships' element={<ShipsInfoCard />} />
+                        <Route
+                            path='/ship/:shipSymbol'
+                            element={<ShipInfoCard />}
+                        />
                     </Routes>
                 </BrowserRouter>
             </InnerWrapper>

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../common/UserContext';
 import AgentInfoCard from './AgentInfoCard';
 import { useSelector } from 'react-redux';
 import { selectAgent } from '../features/agent/agentSlice';

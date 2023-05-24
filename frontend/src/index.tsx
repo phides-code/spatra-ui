@@ -5,7 +5,7 @@ import { store } from './app/store';
 import App from './App';
 import './index.css';
 import { Auth0Provider } from '@auth0/auth0-react';
-import { UserProvider } from './UserContext';
+import { UserProvider } from './common/UserContext';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);

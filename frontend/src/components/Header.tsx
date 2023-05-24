@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../common/UserContext';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { LoginButton, LogoutButton } from './LoginLogoutButtons';

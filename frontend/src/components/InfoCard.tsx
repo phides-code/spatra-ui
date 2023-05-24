@@ -30,14 +30,14 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     max-width: 40rem;
-    border: 1px solid gray;
+    border: 1px solid darkgray;
 `;
 
 const CardHeader = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid gray;
+    border: 1px solid darkgray;
     padding: 0.2rem;
 `;
 

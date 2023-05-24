@@ -11,6 +11,7 @@ import {
 import { useSelector } from 'react-redux';
 import { selectUserProfile } from '../features/userProfile/userProfileSlice';
 import { styled } from 'styled-components';
+import Tooltip from '../common/Tooltip';
 
 const WaypointInfoCard = () => {
     const { waypointSymbol } = useParams<{ waypointSymbol: string }>();
@@ -24,24 +25,6 @@ const WaypointInfoCard = () => {
 
     const [showTraitInfoBox, setShowTraitInfoBox] = useState(false);
     const [selectedTrait, setSelectedTrait] = useState<Trait>();
-
-    const TraitInfoBox = () => (
-        <TraitInfoBoxWrapper>
-            <CloseButtonWrapper>
-                <CloseButton
-                    onClick={() => {
-                        setShowTraitInfoBox(false);
-                    }}
-                >
-                    X
-                </CloseButton>
-            </CloseButtonWrapper>
-            <div>{selectedTrait?.name}</div>
-            <TraitDescription>
-                <div>{selectedTrait?.description}</div>
-            </TraitDescription>
-        </TraitInfoBoxWrapper>
-    );
 
     const handleTraitClick = (trait: Trait) => {
         setShowTraitInfoBox(true);
@@ -84,7 +67,7 @@ const WaypointInfoCard = () => {
             value: waypoint?.traits.map((trait, i) => (
                 <div key={trait.symbol + i}>
                     <Link
-                        to=''
+                        to='#'
                         onClick={() => {
                             handleTraitClick(trait);
                         }}
@@ -109,36 +92,18 @@ const WaypointInfoCard = () => {
     return (
         <Wrapper>
             <InfoCard header='Waypoint' cardSectionData={cardSectionData} />
-            {showTraitInfoBox && <TraitInfoBox />}
+            {showTraitInfoBox && (
+                <Tooltip
+                    name={selectedTrait?.name as string}
+                    description={selectedTrait?.description as string}
+                    positionOffset='-18rem'
+                    setShowTooltip={setShowTraitInfoBox}
+                />
+            )}
         </Wrapper>
     );
 };
 
 const Wrapper = styled.div``;
-
-const TraitInfoBoxWrapper = styled.div`
-    padding: 0.5rem;
-    margin-left: 2rem;
-    position: relative;
-    top: -18rem;
-    right: 1rem;
-    border: 1px solid darkgray;
-    z-index: 999;
-    background-color: black;
-`;
-
-const CloseButtonWrapper = styled.div`
-    display: flex;
-    justify-content: flex-end;
-`;
-
-const CloseButton = styled.button`
-    background-color: black;
-    color: darkgray;
-`;
-
-const TraitDescription = styled.div`
-    padding-top: 0.5rem;
-`;
 
 export default WaypointInfoCard;

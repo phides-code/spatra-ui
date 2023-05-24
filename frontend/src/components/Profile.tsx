@@ -6,7 +6,7 @@ import {
     selectUserProfile,
     updateUserProfile,
 } from '../features/userProfile/userProfileSlice';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../common/UserContext';
 import { useSelector } from 'react-redux';
 import { selectAgent, fetchAgent } from '../features/agent/agentSlice';
 
@@ -98,8 +98,8 @@ const StyledTextarea = styled.textarea`
     width: 16rem;
     height: 16rem;
     background: black;
-    color: darkgrey;
-    border: 1px solid grey;
+    color: darkgray;
+    border: 1px solid darkgray;
 `;
 
 const ProfileSection = styled.div`
@@ -111,8 +111,8 @@ const ProfileSection = styled.div`
 const ProfileValue = styled.div`
     width: 14rem;
     background: black;
-    color: darkgrey;
-    border: 1px solid grey;
+    color: darkgray;
+    border: 1px solid darkgray;
     min-height: 1rem;
 `;
 
