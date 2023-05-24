@@ -60,8 +60,12 @@ const Profile = () => {
                     <StyledTextarea
                         name='token'
                         value={token as string}
-                        onBlur={(ev) => handleBlur(ev.target)}
-                        onChange={(ev) => handleChange(ev.target)}
+                        onBlur={(ev: React.FocusEvent<HTMLTextAreaElement>) =>
+                            handleBlur(ev.target)
+                        }
+                        onChange={(
+                            ev: React.ChangeEvent<HTMLTextAreaElement>
+                        ) => handleChange(ev.target)}
                     />
                 </div>
             </ProfileSection>
