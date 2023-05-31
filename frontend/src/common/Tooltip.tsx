@@ -8,7 +8,7 @@ interface TooltipProps {
 }
 
 interface TooltipWrapperProps {
-    positionOffset: string;
+    positionoffset: string;
 }
 
 const Tooltip = ({
@@ -17,7 +17,7 @@ const Tooltip = ({
     positionOffset,
     setShowTooltip,
 }: TooltipProps) => (
-    <TooltipWrapper positionOffset={positionOffset}>
+    <TooltipWrapper positionoffset={positionOffset}>
         <CloseButtonWrapper>
             <CloseButton
                 onClick={() => {
@@ -38,7 +38,7 @@ const TooltipWrapper = styled.div<TooltipWrapperProps>`
     padding: 0.5rem;
     margin-left: 2rem;
     position: relative;
-    top: ${(props) => props.positionOffset};
+    top: ${(props) => props.positionoffset};
     right: 1rem;
     border: 1px solid darkgray;
     z-index: 999;

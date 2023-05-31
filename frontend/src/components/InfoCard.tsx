@@ -11,6 +11,8 @@ interface InfoCardProps {
 }
 
 const InfoCard = ({ header, cardSectionData }: InfoCardProps) => {
+    if (!cardSectionData.length) return <div />;
+
     return (
         <Wrapper>
             <CardHeader>{header}</CardHeader>

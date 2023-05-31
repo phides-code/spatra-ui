@@ -22,18 +22,14 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
     useEffect(() => {
         const createUserInDb = async () => {
-            const res = await fetch('/api/createUserInDb', {
+            await fetch('/api/createUserInDb', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...user }),
             });
-            const loginResponse = await res.json();
-            console.log('got loginResponse.data: ');
-            console.log(loginResponse.data);
         };
 
         if (isAuthenticated) {
-            console.log('Got authenticated user.');
             createUserInDb();
         }
     }, [isAuthenticated, user]);

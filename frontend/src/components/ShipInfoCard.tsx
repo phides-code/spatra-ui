@@ -60,11 +60,24 @@ const ShipInfoCard = () => {
         { name: 'Status', value: ship?.nav.status },
         {
             name: 'Fuel',
-            value: `${ship?.fuel.current} / ${ship?.fuel.capacity}`,
+            value:
+                ship?.fuel.current &&
+                ship?.fuel.capacity &&
+                `${ship?.fuel.current} / ${ship?.fuel.capacity}`,
         },
         {
             name: 'Crew',
-            value: `${ship?.crew.current} / ${ship?.crew.capacity}`,
+            value:
+                ship?.crew.current &&
+                ship?.crew.capacity &&
+                `${ship?.crew.current} / ${ship?.crew.capacity}`,
+        },
+        {
+            name: 'Cargo',
+            value:
+                ship?.cargo.units &&
+                ship?.cargo.capacity &&
+                `${ship?.cargo.units} / ${ship?.cargo.capacity}`,
         },
     ] as CardSectionData[];
 
@@ -73,7 +86,11 @@ const ShipInfoCard = () => {
     return (
         <Wrapper>
             <InfoCard
-                header={`${ship?.registration.role} Ship - ${shipSymbol}`}
+                header={
+                    ship?.registration.role
+                        ? `${ship?.registration.role} Ship - ${shipSymbol}`
+                        : ''
+                }
                 cardSectionData={cardSectionData}
             />
             {showTooltip && (
