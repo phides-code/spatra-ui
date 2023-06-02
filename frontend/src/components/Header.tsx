@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { UserContext } from '../common/UserContext';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { LoginButton, LogoutButton } from './LoginLogoutButtons';
+import { LoginButton, LogoutButton, SignupButton } from './LoginLogoutButtons';
 
 interface MenuItemProps {
     name: string;
@@ -63,7 +63,10 @@ const Header = () => {
                     )}
                 </>
             ) : (
-                <LoginButton />
+                <>
+                    <LoginButton />
+                    <SignupButton />
+                </>
             )}
         </Wrapper>
     );

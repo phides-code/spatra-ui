@@ -25,3 +25,22 @@ export const LogoutButton = () => {
         </Link>
     );
 };
+
+export const SignupButton = () => {
+    const { loginWithRedirect } = useAuth0();
+
+    return (
+        <Link
+            to='#'
+            onClick={() =>
+                loginWithRedirect({
+                    authorizationParams: {
+                        screen_hint: 'signup',
+                    },
+                })
+            }
+        >
+            Sign up
+        </Link>
+    );
+};
