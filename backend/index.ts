@@ -4,6 +4,7 @@ import path from 'path';
 import createUserInDb from './handlers/createUserInDb';
 import updateUser from './handlers/updateUser';
 import getUser from './handlers/getUser';
+import getFactions from './handlers/getFactions';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.static(path.resolve(__dirname, '../../frontend/build')));
 app.post('/api/createUserInDb', createUserInDb);
 app.post('/api/updateUserProfile', updateUser);
 app.post('/api/getUserProfile', getUser);
+app.get('/api/getFactions', getFactions);
 
 app.get('*', (req: Request, res: Response) => {
     res.sendFile(path.resolve(__dirname, '../../frontend/build', 'index.html'));

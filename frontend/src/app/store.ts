@@ -5,6 +5,7 @@ import waypointReducer from '../features/waypoint/waypointSlice';
 import systemReducer from '../features/system/systemSlice';
 import shipsReducer from '../features/ships/shipsSlice';
 import shipReducer from '../features/ship/shipSlice';
+import factionsReducer from '../features/factions/factionsSlice';
 
 export const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
         system: systemReducer,
         ships: shipsReducer,
         ship: shipReducer,
+        factions: factionsReducer,
     },
 });
 

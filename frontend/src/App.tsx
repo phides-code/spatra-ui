@@ -11,7 +11,7 @@ import {
     selectUserProfile,
 } from './features/userProfile/userProfileSlice';
 import { useSelector } from 'react-redux';
-import { fetchAgent } from './features/agent/agentSlice';
+import { fetchAgent, selectAgent } from './features/agent/agentSlice';
 import WaypointInfoCard from './components/WaypointInfoCard';
 import SystemInfoCard from './components/SystemInfoCard';
 import ShipsInfoCard from './components/ShipsInfoCard';
@@ -21,13 +21,18 @@ const App = () => {
     const { user, isAuthenticated } = useContext(UserContext);
     const dispatch = useAppDispatch();
 
+    const agent = useSelector(selectAgent);
+
+    console.log('agent: ');
+    console.log(agent);
+
     const userProfile = useSelector(selectUserProfile);
     const token = userProfile?.token;
 
     useEffect(() => {
-        if (token) {
-            dispatch(fetchAgent(token));
-        }
+        // if (token) {
+        dispatch(fetchAgent(token as string));
+        // }
     }, [dispatch, token]);
 
     useEffect(() => {
@@ -46,23 +51,27 @@ const App = () => {
             <InnerWrapper>
                 <BrowserRouter>
                     <Header />
-                    <Routes>
-                        <Route path='/' element={<Home />} />
-                        <Route path='/profile' element={<Profile />} />
-                        <Route
-                            path='/waypoint/:waypointSymbol'
-                            element={<WaypointInfoCard />}
-                        />
-                        <Route
-                            path='/system/:systemSymbol'
-                            element={<SystemInfoCard />}
-                        />
-                        <Route path='/ships' element={<ShipsInfoCard />} />
-                        <Route
-                            path='/ship/:shipSymbol'
-                            element={<ShipInfoCard />}
-                        />
-                    </Routes>
+                    {!token && isAuthenticated ? (
+                        <Profile />
+                    ) : (
+                        <Routes>
+                            <Route path='/' element={<Home />} />
+                            <Route path='/profile' element={<Profile />} />
+                            <Route
+                                path='/waypoint/:waypointSymbol'
+                                element={<WaypointInfoCard />}
+                            />
+                            <Route
+                                path='/system/:systemSymbol'
+                                element={<SystemInfoCard />}
+                            />
+                            <Route path='/ships' element={<ShipsInfoCard />} />
+                            <Route
+                                path='/ship/:shipSymbol'
+                                element={<ShipInfoCard />}
+                            />
+                        </Routes>
+                    )}
                 </BrowserRouter>
             </InnerWrapper>
         </Wrapper>

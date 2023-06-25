@@ -9,11 +9,14 @@ import {
 import { UserContext } from '../common/UserContext';
 import { useSelector } from 'react-redux';
 import { selectAgent, fetchAgent } from '../features/agent/agentSlice';
+import RegisterAgent from './RegisterAgent';
 
 const Profile = () => {
     const dispatch = useAppDispatch();
 
     const [token, setToken] = useState<string>('');
+    const [showRegisterAgent, setShowRegisterAgent] = useState(true);
+
     const { user, isAuthenticated } = useContext(UserContext);
     const userProfile = useSelector(selectUserProfile);
     const agentState = useSelector(selectAgent);
@@ -54,6 +57,9 @@ const Profile = () => {
 
     return (
         <Wrapper>
+            {showRegisterAgent && (
+                <RegisterAgent setShowRegisterAgent={setShowRegisterAgent} />
+            )}
             <ProfileSection>
                 <ProfileSectionLabel>Token:</ProfileSectionLabel>
                 <div>
@@ -69,7 +75,7 @@ const Profile = () => {
                     />
                 </div>
             </ProfileSection>
-            <ProfileSection>
+            {/* <ProfileSection>
                 <ProfileSectionLabel>Agent Symbol:</ProfileSectionLabel>
                 <div>
                     <ProfileValue>{symbol}</ProfileValue>
@@ -80,9 +86,25 @@ const Profile = () => {
                 <div>
                     <ProfileValue>{accountId}</ProfileValue>
                 </div>
-            </ProfileSection>
-            {agentFailed && (
+            </ProfileSection> */}
+            {agentFailed ? (
                 <ErrorMessage>{agentState.error?.message}</ErrorMessage>
+            ) : (
+                <div>
+                    <div>Token confirmed!</div>
+                    <ProfileSection>
+                        <ProfileSectionLabel>Agent Symbol:</ProfileSectionLabel>
+                        <div>
+                            <ProfileValue>{symbol}</ProfileValue>
+                        </div>
+                    </ProfileSection>
+                    <ProfileSection>
+                        <ProfileSectionLabel>AccountID:</ProfileSectionLabel>
+                        <div>
+                            <ProfileValue>{accountId}</ProfileValue>
+                        </div>
+                    </ProfileSection>
+                </div>
             )}
         </Wrapper>
     );
