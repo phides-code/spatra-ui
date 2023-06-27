@@ -5,11 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import { Ship } from '../ships/shipsSlice';
 import { RootState } from '../../app/store';
-
-interface ErrorMessage {
-    message: string;
-    code?: number;
-}
+import { ErrorMessage } from '../../common/ErrorMessage';
 
 interface FetchResponseType {
     data?: Ship;

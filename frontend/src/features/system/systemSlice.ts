@@ -5,15 +5,11 @@ import {
 } from '@reduxjs/toolkit';
 import { Waypoint } from '../waypoint/waypointSlice';
 import { RootState } from '../../app/store';
+import { ErrorMessage } from '../../common/ErrorMessage';
 
 interface FetchResponseType {
     data?: Waypoint[];
     error?: ErrorMessage;
-}
-
-interface ErrorMessage {
-    message: string;
-    code?: number;
 }
 
 interface SystemState extends FetchResponseType {

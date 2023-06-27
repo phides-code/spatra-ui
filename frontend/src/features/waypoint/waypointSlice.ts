@@ -4,6 +4,8 @@ import {
     createSlice,
 } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
+import { ErrorMessage } from '../../common/ErrorMessage';
+import { Faction } from '../factions/factionsSlice';
 
 export interface Waypoint {
     systemSymbol: string;
@@ -30,15 +32,6 @@ export interface Trait {
 interface Chart {
     submittedBy: string;
     submittedOn: string;
-}
-
-interface Faction {
-    symbol: string;
-}
-
-interface ErrorMessage {
-    message: string;
-    code?: number;
 }
 
 interface FetchResponseType {

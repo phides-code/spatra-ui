@@ -4,17 +4,13 @@ import {
     createSlice,
 } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
+import { ErrorMessage } from '../../common/ErrorMessage';
 
 export interface Agent {
     accountId: string;
     symbol: string;
     headquarters: string;
     credits: number;
-}
-
-interface ErrorMessage {
-    message: string;
-    code?: number;
 }
 
 interface FetchResponseType {

@@ -4,6 +4,7 @@ import {
     createSlice,
 } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
+import { ErrorMessage } from '../../common/ErrorMessage';
 
 interface Coordinate {
     x: number;
@@ -161,11 +162,6 @@ export interface Ship {
     mounts: Mount[];
     registration: ShipRegistration;
     cargo: Cargo;
-}
-
-interface ErrorMessage {
-    message: string;
-    code?: number;
 }
 
 interface FetchResponseType {

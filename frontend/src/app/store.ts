@@ -6,6 +6,7 @@ import systemReducer from '../features/system/systemSlice';
 import shipsReducer from '../features/ships/shipsSlice';
 import shipReducer from '../features/ship/shipSlice';
 import factionsReducer from '../features/factions/factionsSlice';
+import registrationReducer from '../features/registration/registrationSlice';
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         ships: shipsReducer,
         ship: shipReducer,
         factions: factionsReducer,
+        registration: registrationReducer,
     },
 });
 

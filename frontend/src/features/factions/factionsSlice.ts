@@ -6,13 +6,13 @@ import {
 import { RootState } from '../../app/store';
 
 export interface Faction {
-    _id: string;
-    symbol: string;
-    name: string;
-    description: string;
-    headquarters: string;
-    traits: Trait[];
-    isRecruiting: boolean;
+    _id?: string;
+    symbol: FactionSymbol;
+    name?: string;
+    description?: string;
+    headquarters?: string;
+    traits?: Trait[];
+    isRecruiting?: boolean;
 }
 
 interface Trait {
@@ -20,6 +20,18 @@ interface Trait {
     name: string;
     description: string;
 }
+
+export type FactionSymbol =
+    | 'COSMIC'
+    | 'VOID'
+    | 'ASTRO'
+    | 'DOMINION'
+    | 'GALACTIC'
+    | 'QUANTUM'
+    | 'CORSAIRS'
+    | 'OBSIDIAN'
+    | 'AEGIS'
+    | 'UNITED';
 
 interface FetchResponseType {
     httpStatus: number;
@@ -36,13 +48,16 @@ const initialState: FactionsState = {
     status: 'idle',
 };
 
-const fetchFactions = createAsyncThunk('factions/fetchFactions', async () => {
-    const rawFetchResponse = await fetch('/api/getFactions');
+export const fetchFactions = createAsyncThunk(
+    'factions/fetchFactions',
+    async () => {
+        const rawFetchResponse = await fetch('/api/getFactions');
 
-    const fetchResponse: FetchResponseType = await rawFetchResponse.json();
+        const fetchResponse: FetchResponseType = await rawFetchResponse.json();
 
-    return fetchResponse;
-});
+        return fetchResponse;
+    }
+);
 
 const factionsSlice = createSlice({
     name: 'factions',
@@ -65,7 +80,7 @@ const factionsSlice = createSlice({
 
 export const selectFactions = createSelector(
     (state: RootState) => state.factions,
-    (factions) => factions.factions || null
+    (factions) => factions
 );
 
 export default factionsSlice.reducer;

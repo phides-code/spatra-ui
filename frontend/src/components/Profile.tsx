@@ -10,12 +10,13 @@ import { UserContext } from '../common/UserContext';
 import { useSelector } from 'react-redux';
 import { selectAgent, fetchAgent } from '../features/agent/agentSlice';
 import RegisterAgent from './RegisterAgent';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
     const dispatch = useAppDispatch();
 
     const [token, setToken] = useState<string>('');
-    const [showRegisterAgent, setShowRegisterAgent] = useState(true);
+    const [showRegisterAgent, setShowRegisterAgent] = useState(false);
 
     const { user, isAuthenticated } = useContext(UserContext);
     const userProfile = useSelector(selectUserProfile);
@@ -25,9 +26,9 @@ const Profile = () => {
     const symbol = agent?.symbol;
     const accountId = agent?.accountId;
 
-    const handleBlur = async (target: EventTarget & HTMLTextAreaElement) => {
+    const updateProfileWithToken = async (token: string) => {
         const update: ProfileUpdate = {
-            token: target.value,
+            token,
         };
 
         const email = user?.email as string;
@@ -58,7 +59,11 @@ const Profile = () => {
     return (
         <Wrapper>
             {showRegisterAgent && (
-                <RegisterAgent setShowRegisterAgent={setShowRegisterAgent} />
+                <RegisterAgent
+                    setShowRegisterAgent={setShowRegisterAgent}
+                    setToken={setToken}
+                    updateProfileWithToken={updateProfileWithToken}
+                />
             )}
             <ProfileSection>
                 <ProfileSectionLabel>Token:</ProfileSectionLabel>
@@ -67,7 +72,7 @@ const Profile = () => {
                         name='token'
                         value={token as string}
                         onBlur={(ev: React.FocusEvent<HTMLTextAreaElement>) =>
-                            handleBlur(ev.target)
+                            updateProfileWithToken(ev.target.value)
                         }
                         onChange={(
                             ev: React.ChangeEvent<HTMLTextAreaElement>
@@ -75,23 +80,17 @@ const Profile = () => {
                     />
                 </div>
             </ProfileSection>
-            {/* <ProfileSection>
-                <ProfileSectionLabel>Agent Symbol:</ProfileSectionLabel>
-                <div>
-                    <ProfileValue>{symbol}</ProfileValue>
-                </div>
-            </ProfileSection>
-            <ProfileSection>
-                <ProfileSectionLabel>AccountID:</ProfileSectionLabel>
-                <div>
-                    <ProfileValue>{accountId}</ProfileValue>
-                </div>
-            </ProfileSection> */}
+
             {agentFailed ? (
-                <ErrorMessage>{agentState.error?.message}</ErrorMessage>
+                <ProfileSection>
+                    <ErrorMessage>{agentState.error?.message}</ErrorMessage>
+                </ProfileSection>
             ) : (
                 <div>
-                    <div>Token confirmed!</div>
+                    <ProfileSection>
+                        <ValidTokenMessage>Token confirmed!</ValidTokenMessage>
+                    </ProfileSection>
+
                     <ProfileSection>
                         <ProfileSectionLabel>Agent Symbol:</ProfileSectionLabel>
                         <div>
@@ -106,6 +105,16 @@ const Profile = () => {
                     </ProfileSection>
                 </div>
             )}
+            <ProfileSection>
+                <Link
+                    to='#'
+                    onClick={() => {
+                        setShowRegisterAgent(true);
+                    }}
+                >
+                    Register a new agent
+                </Link>
+            </ProfileSection>
         </Wrapper>
     );
 };
@@ -144,6 +153,10 @@ const ProfileValue = styled.div`
 
 const ErrorMessage = styled.div`
     color: darkred;
+`;
+
+const ValidTokenMessage = styled.div`
+    color: green;
 `;
 
 export default Profile;
