@@ -105,13 +105,15 @@ const RegisterAgent = ({
                         {factionNames}
                     </StyledSelect>
                 </RegistrationSection>
-                <StyledButton
-                    disabled={
-                        callsign === '' || callsign.includes(' ') || loading
-                    }
-                >
-                    {loading ? '...' : 'Submit'}
-                </StyledButton>
+                <RegistrationSection>
+                    <StyledButton
+                        disabled={
+                            callsign === '' || callsign.includes(' ') || loading
+                        }
+                    >
+                        {loading ? '...' : 'Submit'}
+                    </StyledButton>
+                </RegistrationSection>
             </form>
             {errorState && (
                 <RegistrationSection>
@@ -132,6 +134,7 @@ const Wrapper = styled.div`
     z-index: 999;
     background-color: black;
     overflow-x: hidden;
+    max-width: 13rem;
 `;
 
 const StyledSelect = styled.select`
@@ -141,7 +144,7 @@ const StyledSelect = styled.select`
 
 const ButtonWrapper = styled.div`
     position: relative;
-    left: 10.5rem;
+    left: 11.5rem;
 `;
 
 const RegistrationSection = styled.div`
