@@ -8,6 +8,7 @@ import { Agent } from '../agent/agentSlice';
 import { Faction } from '../factions/factionsSlice';
 import { Ship } from '../ships/shipsSlice';
 import { RootState } from '../../app/store';
+import { Contract } from '../contracts/contractsSlice';
 
 export interface Registration {
     token: string;
@@ -15,35 +16,6 @@ export interface Registration {
     contract: Contract;
     faction: Faction;
     ship: Ship;
-}
-
-interface Contract {
-    id: string;
-    factionSymbol: string;
-    type: string;
-    terms: Terms;
-    accepted: boolean;
-    fulfilled: boolean;
-    expiration: string;
-    deadlineToAccept: string;
-}
-
-interface Terms {
-    deadline: string;
-    payment: Payment;
-    deliver: Delivery[];
-}
-
-interface Payment {
-    onAccepted: number;
-    onFulfilled: number;
-}
-
-interface Delivery {
-    tradeSymbol: string;
-    destinationSymbol: string;
-    unitsRequired: number;
-    unitsFulfilled: number;
 }
 
 interface FetchResponseType {

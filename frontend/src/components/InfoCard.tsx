@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export interface CardSectionData {
-    name: string;
+    name: string | JSX.Element;
     value: string | JSX.Element;
 }
 
@@ -18,8 +18,8 @@ const InfoCard = ({ header, cardSectionData }: InfoCardProps) => {
             <CardHeader>{header}</CardHeader>
             <CardBody>
                 {cardSectionData.map((cardSection, i) => (
-                    <CardSection key={cardSection.name + i}>
-                        {`${cardSection.name}: `}
+                    <CardSection key={cardSection.name.toString() + i}>
+                        {cardSection.name}
                         <CardSectionValue>{cardSection.value}</CardSectionValue>
                     </CardSection>
                 ))}

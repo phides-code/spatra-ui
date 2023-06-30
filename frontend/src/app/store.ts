@@ -7,6 +7,8 @@ import shipsReducer from '../features/ships/shipsSlice';
 import shipReducer from '../features/ship/shipSlice';
 import factionsReducer from '../features/factions/factionsSlice';
 import registrationReducer from '../features/registration/registrationSlice';
+import contractsReducer from '../features/contracts/contractsSlice';
+import contractReducer from '../features/contract/contractSlice';
 
 export const store = configureStore({
     reducer: {
@@ -18,6 +20,8 @@ export const store = configureStore({
         ship: shipReducer,
         factions: factionsReducer,
         registration: registrationReducer,
+        contracts: contractsReducer,
+        contract: contractReducer,
     },
 });
 

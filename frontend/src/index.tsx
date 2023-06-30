@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
@@ -14,19 +14,19 @@ const AUTH0_DOMAIN = process.env.REACT_APP_AUTH0_DOMAIN as string;
 const AUTH0_CLIENT_ID = process.env.REACT_APP_AUTH0_CLIENT_ID as string;
 
 root.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <Auth0Provider
-                domain={AUTH0_DOMAIN}
-                clientId={AUTH0_CLIENT_ID}
-                authorizationParams={{
-                    redirect_uri: window.location.origin,
-                }}
-            >
-                <UserProvider>
-                    <App />
-                </UserProvider>
-            </Auth0Provider>
-        </Provider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <Provider store={store}>
+        <Auth0Provider
+            domain={AUTH0_DOMAIN}
+            clientId={AUTH0_CLIENT_ID}
+            authorizationParams={{
+                redirect_uri: window.location.origin,
+            }}
+        >
+            <UserProvider>
+                <App />
+            </UserProvider>
+        </Auth0Provider>
+    </Provider>
+    // </React.StrictMode>
 );

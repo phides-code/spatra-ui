@@ -11,28 +11,25 @@ import {
     selectUserProfile,
 } from './features/userProfile/userProfileSlice';
 import { useSelector } from 'react-redux';
-import { fetchAgent, selectAgent } from './features/agent/agentSlice';
+import { fetchAgent } from './features/agent/agentSlice';
 import WaypointInfoCard from './components/WaypointInfoCard';
 import SystemInfoCard from './components/SystemInfoCard';
 import ShipsInfoCard from './components/ShipsInfoCard';
 import ShipInfoCard from './components/ShipInfoCard';
+import MyContracts from './components/MyContracts';
+import ContractInfoCard from './components/ContractInfoCard';
 
 const App = () => {
     const { user, isAuthenticated } = useContext(UserContext);
     const dispatch = useAppDispatch();
 
-    const agent = useSelector(selectAgent);
-
-    console.log('agent: ');
-    console.log(agent);
-
     const userProfile = useSelector(selectUserProfile);
     const token = userProfile?.token;
 
     useEffect(() => {
-        // if (token) {
-        dispatch(fetchAgent(token as string));
-        // }
+        if (token) {
+            dispatch(fetchAgent(token as string));
+        }
     }, [dispatch, token]);
 
     useEffect(() => {
@@ -69,6 +66,14 @@ const App = () => {
                             <Route
                                 path='/ship/:shipSymbol'
                                 element={<ShipInfoCard />}
+                            />
+                            <Route
+                                path='/mycontracts'
+                                element={<MyContracts />}
+                            />
+                            <Route
+                                path='/contract/:contractId'
+                                element={<ContractInfoCard />}
                             />
                         </Routes>
                     )}

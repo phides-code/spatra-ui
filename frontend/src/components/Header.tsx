@@ -37,7 +37,7 @@ const Header = () => {
             </CloseButton>
             <MenuItem name='Profile' destination='/profile' />
             <MenuItem name='Ships' destination='/ships' />
-            <MenuItem name='Contracts' destination='#' />
+            <MenuItem name='My Contracts' destination='/mycontracts' />
             <MenuItemWrapper>
                 <LogoutButton />
             </MenuItemWrapper>

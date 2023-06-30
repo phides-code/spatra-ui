@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import { useAppDispatch } from '../app/hooks';
 import {
     ProfileUpdate,
+    fetchUserProfile,
     selectUserProfile,
     updateUserProfile,
 } from '../features/userProfile/userProfileSlice';
@@ -40,6 +41,13 @@ const Profile = () => {
 
         if (result) {
             await dispatch(fetchAgent(token));
+
+            dispatch(
+                fetchUserProfile({
+                    email: user?.email as string,
+                    sub: user?.sub as string,
+                })
+            );
         }
     };
 
@@ -65,6 +73,10 @@ const Profile = () => {
                     updateProfileWithToken={updateProfileWithToken}
                 />
             )}
+            <ProfileSection>
+                <ProfileSectionLabel>Email:</ProfileSectionLabel>
+                <ProfileValue>{userProfile.email}</ProfileValue>
+            </ProfileSection>
             <ProfileSection>
                 <ProfileSectionLabel>Token:</ProfileSectionLabel>
                 <div>
@@ -147,7 +159,6 @@ const ProfileValue = styled.div`
     width: 14rem;
     background: black;
     color: darkgray;
-    border: 1px solid darkgray;
     min-height: 1rem;
 `;
 

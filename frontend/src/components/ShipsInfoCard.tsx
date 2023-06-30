@@ -7,13 +7,13 @@ import InfoCard, { CardSectionData } from './InfoCard';
 import { Link } from 'react-router-dom';
 
 const ShipsInfoCard = () => {
-    const shipsState = useSelector(selectShips);
-    const ships = shipsState.data;
-
     const dispatch = useAppDispatch();
 
     const userProfile = useSelector(selectUserProfile);
     const token = userProfile?.token as string;
+
+    const shipsState = useSelector(selectShips);
+    const ships = shipsState.data;
 
     useEffect(() => {
         if (token) {
@@ -21,7 +21,7 @@ const ShipsInfoCard = () => {
         }
     }, [dispatch, token]);
 
-    const cardSectionData = ships?.map((ship, i) => ({
+    const cardSectionData = ships?.map((ship) => ({
         name: ship.registration.role,
         value: (
             <Link to={`/ship/${ship.registration.name}`}>

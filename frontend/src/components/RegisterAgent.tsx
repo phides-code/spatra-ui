@@ -12,6 +12,7 @@ import {
     postRegistration,
     selectRegistration,
 } from '../features/registration/registrationSlice';
+import { fetchAgent } from '../features/agent/agentSlice';
 
 interface RegisterAgentProps {
     setShowRegisterAgent: React.Dispatch<React.SetStateAction<boolean>>;
@@ -68,6 +69,7 @@ const RegisterAgent = ({
         if (registrationPayload) {
             setToken(registrationPayload.data.token);
             updateProfileWithToken(registrationPayload.data.token);
+            dispatch(fetchAgent(registrationPayload.data.token));
             setShowRegisterAgent(false);
         }
     };

@@ -11,17 +11,17 @@ import { useEffect, useState } from 'react';
 import InfoCard, { CardSectionData } from './InfoCard';
 import { Frame } from '../features/ships/shipsSlice';
 import Tooltip from '../common/Tooltip';
-import styled from 'styled-components';
 
 const ShipInfoCard = () => {
-    const { shipSymbol } = useParams<{ shipSymbol: string }>();
-    const shipState = useSelector(selectShip);
-    const ship = shipState.data;
-
     const dispatch = useAppDispatch();
+
+    const { shipSymbol } = useParams<{ shipSymbol: string }>();
 
     const userProfile = useSelector(selectUserProfile);
     const token = userProfile?.token as string;
+
+    const shipState = useSelector(selectShip);
+    const ship = shipState.data;
 
     const [showTooltip, setShowTooltip] = useState(false);
     const [selectedClickableItem, setSelectedClickableItem] = useState<Frame>();
@@ -84,7 +84,7 @@ const ShipInfoCard = () => {
     if (!cardSectionData) return <div />;
 
     return (
-        <Wrapper>
+        <div>
             <InfoCard
                 header={
                     ship?.registration.role
@@ -101,10 +101,8 @@ const ShipInfoCard = () => {
                     setShowTooltip={setShowTooltip}
                 />
             )}
-        </Wrapper>
+        </div>
     );
 };
-
-const Wrapper = styled.div``;
 
 export default ShipInfoCard;
