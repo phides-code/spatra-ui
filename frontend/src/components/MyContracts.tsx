@@ -47,8 +47,9 @@ const MyContracts = () => {
         ),
     })) as CardSectionData[];
 
-    if (!myContracts || myContracts?.length === 0)
-        return <div>No contracts</div>;
+    if (!myContracts) return <div />;
+
+    if (myContracts?.length === 0) return <div>No contracts</div>;
 
     return <InfoCard header='My Contracts' cardSectionData={cardSectionData} />;
 };
